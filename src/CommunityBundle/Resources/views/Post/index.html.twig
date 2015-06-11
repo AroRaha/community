@@ -1,0 +1,70 @@
+{% extends 'CommunityBundle::layout.html.twig' %}
+{% block body -%}
+    <h1>Article list</h1>
+
+    <table class="records_list">
+        <tbody>
+            <div class="row">
+        {% for entity in entities %}
+
+              <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                  {% if entity.media %}
+                        {% thumbnail entity.media, 'thumbnail' %} {# render the related thumbnail #}
+                    {% endif %}
+                  <div class="caption">
+                    <h3>{{ entity.title }}</h3>
+                    <p>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</p>
+                    <p><a href="{{ path('post_show', { 'id': entity.id }) }}" class="btn btn-primary" role="button">Voir</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('post_edit', { 'id': entity.id }) }}" class="btn btn-default" role="button">Edit</a>
+                            <a href="{{ path('post_delete', { 'id': entity.id }) }}" class="btn btn-default" role="button">Supprimer</a>
+                        {% endif %}
+                    </p>
+
+                  </div>
+                </div>
+              </div>
+
+
+        <!--
+            <tr>
+                <td><a href="{{ path('post_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td></td>
+                <td>{{ entity.auteur }}</td>
+                <td>{{ entity.body }}</td>
+
+                <td>{{ entity.tags }}</td>
+
+        -->
+        {% endfor %}
+         </div>
+        </tbody>
+    </table>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <ul>
+        <li>
+            <a href="{{ path('post_new', { 'choice' : 'youtube'}) }}">
+                new youtube
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('post_new', { 'choice' : 'dailymotion'}) }}">
+                new dailymotion
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('post_new', { 'choice' : 'image'}) }}">
+                new image
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('post_new', { 'choice' : 'vimeo'}) }}">
+                new vimeo
+            </a>
+        </li>
+    </ul>
+{% endif %}
+
+    {% endblock %}

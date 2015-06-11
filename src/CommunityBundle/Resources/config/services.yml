@@ -1,0 +1,15 @@
+services:
+#    community.example:
+#        class: CommunityBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+services:
+    sonata.admin.post:
+        class: CommunityBundle\Admin\PostAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Contenu", label: "Post" }
+        arguments:
+            - ~
+            - CommunityBundle\Entity\Post
+            - ~
+        calls:
+            - [ setTranslationDomain, [CommunityBundle]]

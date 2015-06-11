@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+{% block title %}Bienvenue sur {% endblock %}
+{% block body %}
+    {% for entity in entities %}
+
+        <article class="blog">
+            <div class="date"><time datetime="{{ entity.updatedAt|date('c') }}">{{ entity.updatedAt|date('l, F j, Y') }}</time></div>
+            <header>
+                <h2><a href="{{ path('post_show', { 'id': entity.id }) }}">{{ entity.title }}</a></h2>
+            </header>
+
+            {% if entity.media %}
+                {% media entity.media, 'big' %} {# render the related thumbnail #}
+            {% endif %}
+            <div class="snippet">
+                <p>{{ entity.body(500) }}</p>
+                <p class="continue"><a href="{{ path('post_show', { 'id': entity.id }) }}" class="btn btn-primary" role="button">Detail</a></p>
+            </div>
+
+            <footer class="meta">
+                <p>Posted by <span class="highlight">{{entity.auteur}}</span> at {{ entity.createdAt|date('h:iA') }}</p>
+                <p>Tags: <span class="highlight">{{ entity.tags }}</span></p>
+            </footer>
+        </article>
+    {% else %}
+        <p>Pas d'article trouve</p>
+    {% endfor %}
+{% endblock %}

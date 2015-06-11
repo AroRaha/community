@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+{% block carousel %}
+{% endblock %}
+{% block title %}Contact{% endblock%}
+
+{% block body %}
+    <header>
+        <h1>Contact TheRahaSite</h1>
+    </header>
+    <p>Voulez-vous nous contacter?</p>
+    <form action="{{ path('community_contact') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+
+    <input type="submit" />
+</form>
+{% endblock %}

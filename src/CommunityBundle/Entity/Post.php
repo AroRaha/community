@@ -1,0 +1,332 @@
+<?php
+
+namespace CommunityBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * Post
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ */
+class Post
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="text")
+     */
+    private $body;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="auteur", type="string", length=255)
+     */
+    private $auteur;
+
+    /**
+     * @var \Application\Sonata\MediaBundle\Entity\Media
+     *@ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY")
+     */
+     protected $media;
+
+     /**
+      * @ORM\Column(type="text")
+      */
+     protected $tags;
+
+     /**
+      * @ORM\OneToMany(targetEntity="Comment", mappedBy="article")
+      */
+     protected $comments;
+
+
+    public function __construct()
+    {
+      $this->comments = new ArrayCollection();
+      $this->createdAt = $this->updatedAt = new \DateTime("now");
+    }
+
+    /** @ORM\PreUpdate */
+    public function updated()
+    {
+      $this->updatedAt = new \DateTime("now");
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Post
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Post
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Post
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set body
+     *
+     * @param string $body
+     * @return Post
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set auteur
+     *
+     * @param string $auteur
+     * @return Post
+     */
+    public function setAuteur($auteur)
+    {
+        $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    /**
+     * Get auteur
+     *
+     * @return string
+     */
+    public function getAuteur()
+    {
+        return $this->auteur;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param string $tags
+     * @return Post
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return string
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set media
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $media
+     * @return Post
+     */
+    public function setMedia(\Application\Sonata\MediaBundle\Entity\Media $media = null)
+    {
+        $this->media = $media;
+
+        return $this;
+    }
+
+    /**
+     * Get media
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getMedia()
+    {
+        return $this->media;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \CommunityBundle\Entity\Comment $comments
+     * @return Post
+     */
+    public function addComment(\CommunityBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \CommunityBundle\Entity\Comment $comments
+     */
+    public function removeComment(\CommunityBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     * @return Post
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Add image
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $image
+     * @return Post
+     */
+    public function addImage(\Application\Sonata\MediaBundle\Entity\Media $image)
+    {
+        $this->image[] = $image;
+
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $image
+     */
+    public function removeImage(\Application\Sonata\MediaBundle\Entity\Media $image)
+    {
+        $this->image->removeElement($image);
+    }
+
+
+}

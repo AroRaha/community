@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <!-- Bootstrap -->
+        <link href="{{ asset('css/raha.css') }}" rel="stylesheet" media="screen">
+        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
+        {% block stylesheets %}{% endblock %}
+
+    </head>
+
+</head>
+<body>
+  <section class="container">
+  {% block header %}{% include '::head.html.twig' %}{% endblock %}
+  {% block nav %}{% include '::nav.html.twig' %}{% endblock %}
+
+      <section class="main-col">
+
+          {% block body %}{% endblock %}
+      </section>
+      <aside class="sidebar">
+          {% block sidebar %}
+
+          {% endblock %}
+      </aside>
+
+      <div id="footer">
+          {% block footer %}
+            Copyright - Raha
+          {% endblock %}
+      </div>
+
+
+      {% block javascripts %}{% endblock %}
+      <script src="//code.jquery.com/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  </section>
+</body>
+</html>
