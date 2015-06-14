@@ -226,4 +226,9 @@ class Comment
     {
        $this->setUpdated(new \DateTime());
     }
+
+    public function __toString()
+    {
+        return $this->article->getTitle();
+    }
 }

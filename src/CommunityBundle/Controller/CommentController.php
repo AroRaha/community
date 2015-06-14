@@ -45,6 +45,7 @@ class CommentController extends Controller
     public function createAction($article_id)
     {
 
+
         $article = $this->getArticle($article_id);
 
         $entity = new Comment();
@@ -78,10 +79,11 @@ class CommentController extends Controller
     */
     private function createCreateForm(Comment $entity)
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
         $form = $this->createForm(new CommentType(), $entity, array(
             'action' => $this->generateUrl('comment_create' , array('article_id' => $entity->getArticle()->getId())),
-            'method' => 'POST'
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Ajouter'));

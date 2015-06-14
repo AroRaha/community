@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@CommunityBundle/Resources/config/services.yml" }
+    - { resource: "@UserBundle/Resources/config/user.yml" }
 
 framework:
     #esi:             ~
@@ -31,8 +32,8 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form:
-        #resources: ['bootstrap_3_layout.html.twig']
-        resources: ['bootstrap_3_horizontal_layout.html.twig']
+        resources: ['bootstrap_3_layout.html.twig']
+        #resources: ['bootstrap_3_horizontal_layout.html.twig']
 
 # Assetic Configuration
 assetic:
@@ -116,20 +117,8 @@ sonata_block:
       # Your other blocks
 sonata_admin:
     title:      Community
-
-sonata_user:
-    security_acl: true
-    manager_type: orm # can be orm or mongodb
-    class:
-        user:         Application\Sonata\UserBundle\Entity\User
-        group:        Application\Sonata\UserBundle\Entity\Group
-
-    profile:  # Profile Form (firstname, lastname, etc ...)
-        form:
-            type:               sonata_user_profile
-            handler:            sonata.user.profile.form.handler.default
-            name:               sonata_user_profile_form
-            validation_groups:  [Profile]
+    templates:
+          dashboard: SonataAdminBundle:Core:dashboard.html.twig
 
 fos_user:
     db_driver:      orm # can be orm or odm

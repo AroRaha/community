@@ -60,6 +60,7 @@ class PostController extends Controller
             'comments'    => $comments,
         );
     }
+
     public function getPersistentParameters()
     {
         if (!$this->getRequest()) {
@@ -67,8 +68,10 @@ class PostController extends Controller
         }
 
         return array(
+            
             'provider' => $this->getRequest()->get('provider'),
             'context'  => $this->getRequest()->get('context'),
         );
+
     }
 }

@@ -66,7 +66,7 @@ class Post
      protected $media;
 
      /**
-      * @ORM\Column(type="text")
+      * @ORM\ManyToMany(targetEntity="Tag")
       */
      protected $tags;
 
@@ -78,6 +78,7 @@ class Post
 
     public function __construct()
     {
+      $this->tags     = new ArrayCollection();
       $this->comments = new ArrayCollection();
       $this->createdAt = $this->updatedAt = new \DateTime("now");
     }
@@ -329,4 +330,27 @@ class Post
     }
 
 
+
+    /**
+     * Add tags
+     *
+     * @param \CommunityBundle\Entity\Tag $tags
+     * @return Post
+     */
+    public function addTag(\CommunityBundle\Entity\Tag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \CommunityBundle\Entity\Tag $tags
+     */
+    public function removeTag(\CommunityBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
 }

@@ -11,7 +11,9 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-# app/config/routing.yml
+logout:
+  pattern: /logout
+
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin

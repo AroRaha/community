@@ -1,3 +1,12 @@
 <header class="page-header">
-  <h1>Community <small>Le site communautaire</small></h1>
+  <div class="left_side">
+    <h1>Community <small>Le site communautaire</small></h1>
+  </div>
+  <div class="right_side">
+    {% if is_granted('ROLE_USER') %}
+      Bienvenu {{ app.user.username }} <a href="{{url('community_homepage')}}logout">deconnexion</a>
+    {% else %}
+      <a href="{{url('community_homepage')}}login">login</a>
+    {% endif %}
+</div>
 </header>

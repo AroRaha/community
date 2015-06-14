@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Comment
  *
  * @ORM\Table(name="comment")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CommunityBundle\Entity\CommentRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Comment
@@ -225,5 +225,10 @@ class Comment
     public function setUpdatedValue()
     {
        $this->setUpdated(new \DateTime());
+    }
+
+    public function __toString()
+    {
+        return $this->article->getTitle();
     }
 }
